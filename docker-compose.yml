@@ -14,7 +14,7 @@ services:
   saludar-service:
     image: saludar-service
     build:
-      context: ./SaludarService
+      context: ./saludar
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
