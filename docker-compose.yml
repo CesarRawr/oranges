@@ -23,6 +23,16 @@ services:
       - saludos-mysql
     depends_on:
       - mysqldb
+ 
+  proxy:
+    image: proxy-service
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    networks:
+      - saludos-mysql
+    ports:
+      - 80:80
 
 networks:
   saludos-mysql:
