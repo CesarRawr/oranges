@@ -26,6 +26,21 @@ services:
       - mysqldb
     restart: always
  
+  borrar-service:
+    image: borrar-service
+    build:
+      context: ./borrar
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    environment:
+      MYSQL_HOST: mysqldb
+    networks:
+      - saludos-mysql
+    depends_on:
+      - mysqldb
+    restart: always
+ 
   proxy-service:
     image: proxy-service
     build:
@@ -37,6 +52,7 @@ services:
       - saludos-mysql
     depends_on:
       - saludar-service
+      - borrar-service
     restart: always
 
 networks:
