@@ -55,6 +55,21 @@ services:
     depends_on:
       - mysqldb
     restart: always
+ 
+  buscar-service:
+    image: buscar-service
+    build:
+      context: ./buscar
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8080"
+    environment:
+      MYSQL_HOST: mysqldb
+    networks:
+      - saludos-mysql
+    depends_on:
+      - mysqldb
+    restart: always
 
   proxy-service:
     image: proxy-service
@@ -69,6 +84,7 @@ services:
       - saludar-service
       - borrar-service
       - modificar-service
+      - buscar-service
     restart: always
 
 networks:
