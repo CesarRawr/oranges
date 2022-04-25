@@ -1,0 +1,28 @@
+version: "3.3"
+services:
+  mysqldb:
+    image: mariadb
+    networks:
+      - saludos-mysql
+    command: --init-file /docker-entrypoint-initdb.d/bd.sql
+    volumes:
+      - ./bd.sql:/docker-entrypoint-initdb.d/bd.sql
+    environment:
+      MARIADB_ROOT_PASSWORD: 123456
+ 
+  saludar-service:
+    image: saludar-service
+    build:
+      context: ./SaludarService
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_HOST: mysqldb
+    networks:
+      - saludos-mysql
+    depends_on:
+      - mysqldb
+
+networks:
+  saludos-mysql:
