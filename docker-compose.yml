@@ -9,30 +9,34 @@ services:
       - ./bd.sql:/docker-entrypoint-initdb.d/bd.sql
     environment:
       MARIADB_ROOT_PASSWORD: 123456
+    restart: always
  
   saludar-service:
     image: saludar-service
     build:
       context: ./SaludarService
       dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
     environment:
       MYSQL_HOST: mysqldb
     networks:
       - saludos-mysql
     depends_on:
       - mysqldb
+      - proxy-service
+    restart: always
  
-  proxy:
+  proxy-service:
     image: proxy-service
     build:
       context: ./proxy
       dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
     networks:
       - saludos-mysql
     ports:
       - 80:80
+    restart: always
 
 networks:
   saludos-mysql:
