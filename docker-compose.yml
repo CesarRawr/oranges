@@ -41,6 +41,21 @@ services:
       - mysqldb
     restart: always
  
+  modificar-service:
+    image: modificar-service
+    build:
+      context: ./modificar
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
+    environment:
+      MYSQL_HOST: mysqldb
+    networks:
+      - saludos-mysql
+    depends_on:
+      - mysqldb
+    restart: always
+
   proxy-service:
     image: proxy-service
     build:
@@ -53,6 +68,7 @@ services:
     depends_on:
       - saludar-service
       - borrar-service
+      - modificar-service
     restart: always
 
 networks:
