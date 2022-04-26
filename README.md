@@ -1,5 +1,5 @@
 # A Hombros de Gigantes
-_Reverse proxy. Docker Compose_
+_Ejercicio saludar dividido. Reverse proxy. Docker Compose_
 
 ### Como correr
 
