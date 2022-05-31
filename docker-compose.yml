@@ -4,7 +4,6 @@ services:
     image: mariadb
     networks:
       - saludos-mysql
-    command: --init-file /docker-entrypoint-initdb.d/bd.sql
     volumes:
       - ./bd.sql:/docker-entrypoint-initdb.d/bd.sql
     environment:
